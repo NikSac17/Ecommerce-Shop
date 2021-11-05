@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import aboutImage from "../images/about.jpeg"
 
 const About = () => {
     return (
         <div>
-            <h1>About</h1>
+            <img src={aboutImage}/>
         </div>
     )
 }

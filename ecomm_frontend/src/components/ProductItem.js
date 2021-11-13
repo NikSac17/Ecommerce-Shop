@@ -1,33 +1,54 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardActionArea,
-} from "@material-ui/core";
+import { Link } from "react-router-dom";
 
-const ProductItem = ({ item }) => {
+const ProductItem = ({
+  title,
+  description,
+  image,
+  category,
+  size,
+  price,
+  brand,
+  shipping,
+  available,
+}) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="30"
-          width="30"
-          image={item.image}
-          alt={item.title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {item.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {item.price}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <div className="container col-md-3 my-3">
+      <div className="row mb-2">
+        <div>
+          <Link
+            to={{
+              pathname: "/productDetails",
+              state: {
+                title,
+                description,
+                image,
+                category,
+                size,
+                price,
+                brand,
+                shipping,
+                available,
+              },
+            }}
+          >
+            <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div className="col-auto d-none d-lg-block">
+                <img
+                  className="bd-placeholder-img"
+                  width="200"
+                  height="250"
+                  src={image}
+                  alt="Loading Soon..."
+                />
+              </div>
+              <p className="mb-0">{title}</p>
+              <p className="mb-0">Rs {price}</p>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

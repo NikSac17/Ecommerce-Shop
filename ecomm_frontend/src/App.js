@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Error from "./pages/Error";
+import ProductItemSolo from "./components/ProductItemSolo";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path="/signup">
           <Signup />
+        </Route>
+        <Route path="/productDetails">
+          <ProductItemSolo/>
         </Route>
         <Route path="*">
           <Error />

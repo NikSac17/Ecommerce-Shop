@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ProductItem from "../components/ProductItem";
+import Loading from "../components/Loading";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+
+  const [loading,setLoading] = useState(true);
 
   const getProducts = async () => {
     const response = await fetch(
@@ -16,6 +19,7 @@ const Products = () => {
     );
 
     const json = await response.json();
+    setLoading(false);
     setProducts(json);
     console.log(products);
   };
@@ -26,7 +30,7 @@ const Products = () => {
 
   return (
     <div className="row my-3">
-      {products.length === 0 && "No products to display"}
+      {loading && <Loading/>}
       {products.map((element) => {
         const {
           _id,

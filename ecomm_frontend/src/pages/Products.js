@@ -3,7 +3,7 @@ import ProductItem from "../components/ProductItem";
 import Loading from "../components/Loading";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  var [products, setProducts] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -27,6 +27,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
+    console.log(products);
   }, []);
 
   const categories = [
@@ -51,6 +52,12 @@ const Products = () => {
     e.preventDefault();
   };
 
+  const filterCategory=(category)=>{
+     products=products.filter(product=>product.category===category);
+     console.log(products,category);
+     return products;
+  }
+
   return (
     <div className="d-flex bd-highlight">
       <div className="p-2 flex-shrink-1 bd-highlight my-4">
@@ -62,24 +69,22 @@ const Products = () => {
             rows="1"
             name="name"
             value={search}
-            minLength={3}
-            required
             onChange={(e) => setSearch(e.target.value)}
           ></textarea>
         </form>
-        <h5>Category</h5>
+        <h5>Categories</h5>
         <div>
           {categories.map((category) => {
             return (
               <div>
-                <button className="btn">{category}</button>
+                <button className="btn" onClick={()=>filterCategory(category)}>{category}</button>
               </div>
             );
           })}
         </div>
 
         <div>
-          <h5>Brand</h5>
+          <h5>Brands</h5>
           {brands.map((brand) => {
             return (
               <div>

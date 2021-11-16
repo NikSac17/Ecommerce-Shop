@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useHistory } from "react-router-dom";
 
 const ProductItemSolo = () => {
   const location = useLocation();
+  let history = useHistory();
 
   let [counter, setCounter] = useState(1);
 
@@ -17,21 +18,25 @@ const ProductItemSolo = () => {
   };
 
   const addToCart = async () => {
-    const response = await fetch("http://localhost:5000/api/cart/addToCart", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        image: location.state.image,
-        title: location.state.title,
-        price: location.state.price,
-        quantity: counter,
-        subtotal: counter * location.state.price,
-      }),
-    });
-
-    const json = await response.json();
+    if (localStorage.getItem("token")) {
+      const response = await fetch("http://localhost:5000/api/cart/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image: location.state.image,
+          title: location.state.title,
+          price: location.state.price,
+          quantity: counter,
+          subtotal: counter * location.state.price,
+        }),
+      });
+      const json = await response.json();
+    }
+    else{
+      alert("Login/Signup First")
+    }
   };
 
   return (

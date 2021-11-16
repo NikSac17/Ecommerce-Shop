@@ -16,6 +16,24 @@ const ProductItemSolo = () => {
     setCounter(counter++);
   };
 
+  const addToCart = async () => {
+    const response = await fetch("http://localhost:5000/api/cart/addToCart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        image: location.state.image,
+        title: location.state.title,
+        price: location.state.price,
+        quantity: counter,
+        subtotal: counter * location.state.price,
+      }),
+    });
+
+    const json = await response.json();
+  };
+
   return (
     <div>
       <div className="row featurette d-flex justify-content-center align-items-center my-5">
@@ -58,7 +76,9 @@ const ProductItemSolo = () => {
             +
           </button>
           <div className="col-md-2 my-5">
-            <button className="btn btn-primary">Add to cart</button>
+            <button className="btn btn-primary" onClick={addToCart}>
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

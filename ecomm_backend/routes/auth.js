@@ -10,6 +10,7 @@ dotenv.config();
 router.post("/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const encrypPass = await bcrypt.hash(req.body.password, salt);
+  var success = false;
 
   const user = new User({
     username: req.body.username,
@@ -19,7 +20,8 @@ router.post("/signup", async (req, res) => {
 
   try {
     const newUser = await user.save();
-    res.status(200).json(newUser);
+    success = true;
+    res.status(200).json({ success, newUser });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -27,20 +29,27 @@ router.post("/signup", async (req, res) => {
 
 //LOGIN
 router.post("/login", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
-  if (!user) {
-    res.status(401).json({ error: "Invalid Credentials" });
+  try {
+    var success = false;
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      res.status(401).json({ error: "Invalid Credentials" });
+    }
+
+    const passComp = await bcrypt.compare(req.body.password, user.password);
+    if (!passComp) {
+      res.status(401).json({ error: "Invalid Credentials" });
+    }
+
+    success = true;
+    const authToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "3d",
+    });
+
+    res.status(200).json({ success, authToken, username: user.username });
+  } catch (error) {
+    res.status(500).json(error);
   }
-
-  const passComp = await bcrypt.compare(req.body.password, user.password); 
-  if (!passComp) {
-    res.status(401).json({ error: "Invalid Credentials" });
-  }
-
-  const authToken = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "3d"});
-
-  res.status(200).json({authToken ,username: user.username});
-
 });
 
 module.exports = router;

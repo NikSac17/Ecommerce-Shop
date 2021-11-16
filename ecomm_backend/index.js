@@ -25,6 +25,7 @@ app.use(express.json()); //to pass json object in req body
 app.use("/api/user", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/product"));
+app.use("/api/cart",require("./routes/cart"));
 
 app.listen(port, () => {
   console.log("Backend server running...");

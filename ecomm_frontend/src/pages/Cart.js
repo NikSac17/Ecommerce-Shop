@@ -12,6 +12,7 @@ const Cart = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
       },
     });
 
@@ -22,24 +23,38 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
       getCartItems();
-    }
-    else{
+    } else {
       history.push("/login");
     }
   }, []);
 
-  const handleDelete=()=>{
-      //delete api ===> to be created
-  }
+  const handleDelete = async (id) => {
+    const response = await fetch(
+      `http://localhost:5000/api/cart/deleteFromCart/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+
+    const json = response.json();
+    const newData=cart.filter((element)=>{
+        return element._id!==id;
+    });
+    setCart(newData);
+  };
 
   return (
     <>
       {loading && <Loading />}
       {cart.length === 0 && <p>Nothing in cart</p>}
       {!loading && cart.length !== 0 && (
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">Item</th>
@@ -64,7 +79,14 @@ const Cart = () => {
                   <td>{item.price}</td>
                   <td>{item.quantity}</td>
                   <td>{item.subtotal}</td>
-                  <td><button className="btn btn-danger" onClick={handleDelete}>Delete</button></td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={()=>handleDelete(item._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               );
             })}

@@ -23,6 +23,7 @@ const ProductItemSolo = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token")
         },
         body: JSON.stringify({
           image: location.state.image,

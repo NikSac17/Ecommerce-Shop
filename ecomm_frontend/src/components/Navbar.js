@@ -65,8 +65,8 @@ const Navbar = () => {
                 Logout
                 {/* <i className="far fa-user-circle fa-lg"></i> */}
               </button>
-              <div className="btn btn-primary">
-                {localStorage.getItem("username")}
+              <div className="btn btn-primary mx-2">
+                {localStorage.getItem("username").toLocaleUpperCase()}
               </div>
             </form>)}
 

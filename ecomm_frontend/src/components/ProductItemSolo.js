@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation,useHistory } from "react-router-dom";
 
+const END_POINT="http://localhost:5000";
+
 const ProductItemSolo = () => {
   const location = useLocation();
   let history = useHistory();
@@ -19,7 +21,7 @@ const ProductItemSolo = () => {
 
   const addToCart = async () => {
     if (localStorage.getItem("token")) {
-      const response = await fetch("http://localhost:5000/api/cart/addToCart", {
+      const response = await fetch(`${END_POINT}/api/cart/addToCart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

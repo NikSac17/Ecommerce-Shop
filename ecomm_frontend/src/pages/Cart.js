@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Loading from "../components/Loading";
 
+const END_POINT="http://localhost:5000";
+
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   let history = useHistory();
 
   const getCartItems = async () => {
-    const response = await fetch("http://localhost:5000/api/cart/getFromCart", {
+    const response = await fetch(`${END_POINT}/api/cart/getFromCart`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +34,7 @@ const Cart = () => {
 
   const handleDelete = async (id) => {
     const response = await fetch(
-      `http://localhost:5000/api/cart/deleteFromCart/${id}`,
+      `${END_POINT}/api/cart/deleteFromCart/${id}`,
       {
         method: "DELETE",
         headers: {

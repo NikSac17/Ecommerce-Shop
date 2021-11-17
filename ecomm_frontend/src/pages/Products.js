@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ProductItem from "../components/ProductItem";
 import Loading from "../components/Loading";
 
+const END_POINT="http://localhost:5000";
+
 const Products = () => {
   var [products, setProducts] = useState([]);
 
@@ -10,7 +12,7 @@ const Products = () => {
 
   const getProducts = async () => {
     const response = await fetch(
-      "http://localhost:5000/api/products/getAllItems",
+      `${END_POINT}/api/products/getAllItems`,
       {
         method: "GET",
         headers: {

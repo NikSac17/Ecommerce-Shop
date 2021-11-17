@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+const END_POINT="http://localhost:5000";
+
 const Signup = ({showAlert}) => {
   let history = useHistory();
 
@@ -8,7 +10,7 @@ const Signup = ({showAlert}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/signup", {
+    const response = await fetch(`${END_POINT}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

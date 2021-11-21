@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Error from "./pages/Error";
 import ProductItemSolo from "./components/ProductItemSolo";
+import Cover from "./pages/Cover";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/store">
+          <Cover/>
         </Route>
         <Route path="/products">
           <Products />

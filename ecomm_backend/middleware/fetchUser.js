@@ -14,7 +14,7 @@ const fetchuser = async(req,res,next)=>{
     try {
         const data = jwt.verify(token,JWT_SECRET);
         req.user=data;
-        console.log(req.user);
+        // console.log(req.user);
         next();
     } catch (error) {
         return res.status(401).send({error: "Please authenticate"});

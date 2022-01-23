@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img1 from "../images/1.jpeg";
 import img2 from "../images/2.jpg";
 import img3 from "../images/3.jpg";
+import ProductItem from "../components/ProductItem";
+import Loading from "../components/Loading";
+
+const END_POINT="http://localhost:5000";
 
 const Home = () => {
+  var [products, setProducts] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const getProducts = async () => {
+    const response = await fetch(`${END_POINT}/api/products/getAllItems`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+    setLoading(false);
+    shuffle(json);
+    setProducts(json.slice(0,4));
+    console.log(products);
+  };
+
+  const shuffle=(array)=>{
+    array.sort(() => Math.random() - 0.5);
+  }
+
+  useEffect(() => {
+    getProducts();
+    console.log(products);
+  }, []);
+
   return (
     <>
       <div
@@ -62,11 +94,45 @@ const Home = () => {
         </button>
       </div>
 
+      <div className="p-2 w-100 bd-highlight">
+        <div className="row my-1">
+          {loading && <Loading />}
+          {products.map((element) => {
+            const {
+              _id,
+              title,
+              description,
+              image,
+              category,
+              size,
+              price,
+              brand,
+              shipping,
+              available,
+            } = element;
+            return (
+              <ProductItem
+                key={_id}
+                title={title}
+                description={description}
+                image={image}
+                category={category}
+                size={size}
+                price={price}
+                brand={brand}
+                shipping={shipping}
+                available={available}
+              />
+            );
+          })}
+        </div>
+      </div>
+
       {/* <div className="row my-3">
-        {data.slice(-4).map((element) => {
+        {products.slice(-4).map((element) => {
           const { _id, imgUrl1, imgUrl2, heading, description, points, timestamp } = element;
           return (
-            <Homeitem
+            <ProductItem
               key={_id}
               imgUrl1={imgUrl1}
               imgUrl2={imgUrl2}
@@ -78,6 +144,7 @@ const Home = () => {
           );
         })}
       </div> */}
+
     </>
   );
 };

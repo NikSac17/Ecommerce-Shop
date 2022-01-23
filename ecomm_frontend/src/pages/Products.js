@@ -55,9 +55,18 @@ const Products = () => {
   };
 
   const filterCategory=(category)=>{
+     console.log(category);
      products=products.filter(product=>product.category===category);
      console.log(products,category);
      return products;
+  }
+
+  const filterBrand=(brand)=>{
+    console.log(brand);
+  }
+
+  const clearFilter=()=>{
+    
   }
 
   return (
@@ -90,12 +99,12 @@ const Products = () => {
           {brands.map((brand) => {
             return (
               <div>
-                <button className="btn">{brand}</button>
+                <button className="btn" onClick={()=>filterBrand(brand)}>{brand}</button>
               </div>
             );
           })}
         </div>
-        <button className="btn btn-danger">Clear Filters</button>
+        <button className="btn btn-danger" onClick={()=>clearFilter()}>Clear Filters</button>
       </div>
       <div className="p-2 w-100 bd-highlight">
         <div className="row my-3">

@@ -18,12 +18,12 @@ const About = () => {
           <div className="col-md-7 ">
             <h1 className="featurette-heading">Our Story</h1>
             <p className="lead">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              atque ea autem soluta ducimus dolores maiores saepe. Iure magnam
-              iusto architecto ad provident pariatur quaerat asperiores,
-              suscipit nam nulla quo consectetur ab minima dolorum doloribus,
-              fuga minus cupiditate. Est dolore consequuntur earum blanditiis
-              doloribus debitis molestias consectetur quod quaerat quas?
+              Nowadays there is lot of duplicate supplements in market, and
+              surprisingly many gym owners also give fake supplements to their
+              clients. Our aim is to give original supplements to out customers,
+              as our first priority is the quality of products which we are
+              selling. At our store you will get 100 percent genuine products,
+              as for us your health matters a lot.
             </p>
           </div>
         </div>

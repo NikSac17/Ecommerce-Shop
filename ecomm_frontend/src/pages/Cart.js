@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Loading from "../components/Loading";
+import EmptyCart from "./EmptyCart";
 
 const END_POINT="http://localhost:5000";
 
@@ -54,7 +55,7 @@ const Cart = () => {
   return (
     <>
       {loading && <Loading />}
-      {cart.length === 0 && <p>Nothing in cart</p>}
+      {cart.length === 0 && <EmptyCart/>}
       {!loading && cart.length !== 0 && (
         <table className="table">
           <thead>

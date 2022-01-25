@@ -48,3 +48,8 @@
   border-radius: 50%;
   box-shadow: var(--light-shadow);
 }
+
+
+.form1{
+  border-color: white;
+}
